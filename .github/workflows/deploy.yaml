@@ -12,8 +12,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Debug secrets
+        run: |
+         echo "User=${{ secrets.DOCKER_USERNAME }}"
+         echo "Pass length=${#DOCKER_PASSWORD}"
+        env:
+         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Login to Docker Hub
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
 
       - name: Build Docker image
         working-directory: ./Internship/Internship
