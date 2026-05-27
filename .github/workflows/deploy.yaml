@@ -46,10 +46,10 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/app
-            docker pull ${{ secrets.DOCKER_USERNAME }}/project:latest
+            docker pull neerajdeveloper/project:latest
             docker compose down
             docker compose up -d
             sleep 20
             docker compose ps
-            curl -f http://localhost || exit 1
+            curl -f http://localhost:8080/actuator/health || exit 1
             echo "Deployment successful!"
