@@ -19,7 +19,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Build JAR
-        run: mvn clean package -DskipTests
+        run: |
+         cd Internship/Internship
+         mvn clean package -DskipTests
 
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/project:${{ github.sha }} .
