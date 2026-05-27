@@ -19,9 +19,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        working-directory: ./Internship/Internship
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/project:${{ github.sha }} .
-
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/project:${{ github.sha }} ./Internship/Internship
+        
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/project:${{ github.sha }}
