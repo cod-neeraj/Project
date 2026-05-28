@@ -191,7 +191,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 - Non-root user for security
 
 ---
-
+          
 
 ## SSL Setup
 
