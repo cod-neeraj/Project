@@ -57,7 +57,6 @@ newgrp docker
 ## Step 4 — Set Up Server
 
 ```bash
-# Create app directory structure
 mkdir -p ~/app/nginx/ssl
 mkdir -p ~/app/prometheus
 mkdir -p ~/backups
