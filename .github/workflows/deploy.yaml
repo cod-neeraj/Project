@@ -47,9 +47,8 @@ jobs:
           script: |
             cd ~/app
             docker pull neerajdeveloper/project:latest
-            docker compose down
-            docker compose up -d
-            sleep 20
-            docker compose ps
+            docker compose up -d --no-deps --scale app=2 app
+            sleep 15
+            docker compose up -d --no-deps --scale app=1 app
             curl -f http://localhost:8080/actuator/health || exit 1
             echo "Deployment successful!"
