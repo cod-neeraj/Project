@@ -163,7 +163,6 @@ docker compose ps
 
 ## Docker Setup
 
-### Dockerfile (Multi-stage build)
 ```dockerfile
 # Stage 1: Build
 FROM eclipse-temurin:21-jdk-alpine AS builder
@@ -193,27 +192,6 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ---
 
-## Environment Variables
-
-```env
-# Database
-SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/Notes
-SPRING_DATASOURCE_USERNAME=postgres
-SPRING_DATASOURCE_PASSWORD=<strong-password>
-
-# Redis
-SPRING_DATA_REDIS_HOST=redis
-SPRING_DATA_REDIS_PORT=6379
-
-# PostgreSQL container
-POSTGRES_DB=Notes
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=<strong-password>
-```
-
-> ⚠️ Never commit `.env` to Git. All secrets stored in GitHub Secrets for CI/CD.
-
----
 
 ## SSL Setup
 
@@ -248,45 +226,6 @@ sudo certbot certonly --standalone -d yourdomain.com
 
 ---
 
-## NGINX Configuration
-
-```nginx
-events {
-    worker_connections 1024;
-}
-
-http {
-    upstream app {
-        server app:8080;
-    }
-
-    # Redirect HTTP to HTTPS
-    server {
-        listen 80;
-        return 301 https://$host$request_uri;
-    }
-
-    server {
-        listen 443 ssl;
-
-        ssl_certificate /etc/nginx/ssl/self-signed.crt;
-        ssl_certificate_key /etc/nginx/ssl/self-signed.key;
-
-        location / {
-            proxy_pass http://app;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        }
-
-        location /actuator/health {
-            proxy_pass http://app/actuator/health;
-        }
-    }
-}
-```
-
----
 
 ## Security Measures
 
